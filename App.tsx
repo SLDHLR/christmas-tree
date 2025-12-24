@@ -1,11 +1,18 @@
 
-import React, { useState, Suspense } from 'react';
+// import React, { useState, Suspense } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { Loader } from '@react-three/drei';
 import { Experience } from './components/Experience';
 import { UIOverlay } from './components/UIOverlay';
 import { GestureController } from './components/GestureController';
 import { TreeMode } from './types';
+import React, { useState, Suspense, useEffect, useRef } from 'react'; // added music
+
+
+
+
+
+
 
 // Simple Error Boundary to catch 3D resource loading errors (like textures)
 class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasError: boolean}> {
@@ -46,6 +53,33 @@ class ErrorBoundary extends React.Component<{children: React.ReactNode}, {hasErr
 }
 
 export default function App() {
+
+  // 🎵 Background Music
+  const audioRef = useRef<HTMLAudioElement | null>(null);
+
+  useEffect(() => {
+    const audio = new Audio("/audio/christmas.mp3"); // file in public/audio
+    audio.loop = true;
+    audio.volume = 0.4;
+
+    audioRef.current = audio;
+
+    // Browser-safe autoplay (starts on first click)
+    const startMusic = () => {
+      audio.play().catch(() => {});
+      window.removeEventListener("click", startMusic);
+    };
+
+    window.addEventListener("click", startMusic);
+
+    return () => {
+      audio.pause();
+      audio.currentTime = 0;
+    };
+  }, []);
+
+
+  // old one 
   const [mode, setMode] = useState<TreeMode>(TreeMode.FORMED);
   const [handPosition, setHandPosition] = useState<{ x: number; y: number; detected: boolean }>({ x: 0.5, y: 0.5, detected: false });
   const [uploadedPhotos, setUploadedPhotos] = useState<string[]>([]);

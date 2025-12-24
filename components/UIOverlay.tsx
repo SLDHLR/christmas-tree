@@ -66,11 +66,11 @@ export const UIOverlay: React.FC<UIOverlayProps> = ({ mode, onToggle, onPhotosUp
               className="hidden"
             />
             <button
-              onClick={handleUploadClick}
+              // onClick={handleUploadClick}
               className="group px-8 py-3 border-2 border-[#D4AF37] bg-black/50 backdrop-blur-md overflow-hidden transition-all duration-500 hover:shadow-[0_0_30px_#D4AF37] hover:border-[#fff] hover:bg-[#D4AF37]/20"
             >
               <span className="relative z-10 font-serif text-lg md:text-xl text-[#D4AF37] tracking-[0.1em] group-hover:text-white transition-colors">
-                Upload Photos
+                SR GROUP
               </span>
             </button>
           </div>
